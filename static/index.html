@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<style>
+		body{font-family: verdana, arial, helvetica}
+
+		form{border:1px solid #ccc; padding: .5em; float:left; width:100%;}
+
+		form label{display: block; width:10%; float:left;}
+		form select, form input{float:left; margin-left: 12%;}
+
+		form div.sep{clear:both;}
+
+		form #params, form #config{float:left;width:45%; padding: .5em;}
+		form #config label{width: 100%; font-weight: bold}
+		form #config textarea{width: 100%; height: 150px}
+
+	</style>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+	<script type="text/javascript" src="/demo/js/applet_centralitzat.js"></script>
+	<script>
+		function signa(){
+			var _json = {};
+			try{
+				_json = $("#setup").val();
+			}catch(e){
+				alert("json incorrecte");
+			}
+			applet.sign(JSON.parse($("#setup").val()));
+		}
+
+		function updateSetupJSON(){
+			var _json = [];
+			$("form select, form input").each(function(){
+				if(this.type!=="button"){
+					_json.push("     \"" + this.id+"\":\""+this.value+"\"");
+				}
+			});
+			$("#setup").val("{\n"+_json.join(",\n")+"\n}");
+		}
+
+		function addChilds(ini, fi, obj, defecte){
+			var def = defecte;
+			var selected="";
+			$(obj).on("change", function(){
+				updateSetupJSON();
+			})
+			for(var i=ini,z=fi;i<=z;i++){
+				selected = "";
+				if(i===def){
+					selected = " selected='selected' ";
+				}
+				obj.append("<option value=\""+i+"\" "+selected+">"+i+"</option>");
+			}
+
+		}
+
+		$(document).ready(function(){
+
+			applet.setReceiveSignatureUrl("/demo/receiveSignature");
+			applet.setCheckReceiveSignature("/demo/checkReceiveSignature");
+
+			addChilds(0,6,$("#keystore_type"),1);
+			addChilds(1,28,$("#signature_mode"),12);
+			addChilds(1,6,$("#doc_type"),3);
+			$("#document_to_sign").on("keyup", function(){
+				updateSetupJSON();
+			});
+			updateSetupJSON();
+		});
+
+	</script>
+
+</head>
+<body>
+
+		<div>
+			<p><img src="http://www.gencat.cat/img/logo.gif"></p>
+		</div>
+
+		<h1>Test Applet Centralitzat de Signatura de l'AOC</h1>
+
+		<h2>Passes:</h2>
+
+		<ol>
+			<li>Configurar els par&agrave;metres de la signatura: es pot editar directament el &lt;textarea&gt; de configuraci&oacute;</li>
+			<li>Clicar el bot&oacute;: s'obrir&agrave; una nova pestanya del navegador amb les dades de la signatura</li>
+			<li>En la nova finestra, clicar per a descarregar el fitxer de configuraci&oacute; de la signatura </li>
+			<li>Clicar en el fitxer descarregat (&eacute;s un fitxer JNLP que arrencar&agrave; l'aplicaci&oacute; JAVA de signatura), acceptar el "run" de l'aplicaci&oacute; JAVA i introduir el PIN de la tarja amb el certificat</li>
+			<li>Despr&eacute;s d'uns segons, el contingut de la signatura es mostrar&agrave; en la part inferior d'aquesta p&agrave;gina</li>
+		</ol>
+
+
+		<form>
+			<h3>Par&agrave;metres de configuraci&oacute;:</h3>
+
+			<div id="params">
+
+				<div class="sep">
+					<label for="keystore_type">keystore_type:</label>
+					<select id="keystore_type">
+					</select>
+				</div>
+
+				<div class="sep">
+					<label for="signature_mode">signature_mode:</label>
+					<select id="signature_mode">				
+					</select>
+				</div>
+
+				<div class="sep">
+					<label for="doc_type">doc_type:</label>
+					<select id="doc_type">				
+					</select>
+				</div>
+				
+				<div class="sep">
+					<label for="document_to_sign">document_to_sign:</label>
+					<input type="text" id="document_to_sign" value="gYbYj9w6DofPvCfwqKKwXitsErA=" />
+				</div>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<div class="sep">
+	 				<input type="button" value="Signa..." onClick="signa()"></input>
+	 			</div>
+
+			</div>
+
+			<div id="config">
+				<div class="sep">
+					<label for="setup">json de configuraci&oacute;:</label>
+				</div>
+				<div class="sep">
+					<textarea id="setup"></textarea>
+				</div>
+			</div>
+
+		</form>
+
+
+</body>
+</html>
