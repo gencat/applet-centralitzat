@@ -27,11 +27,12 @@
 		function signa(){
 			var _json = {};
 			try{
-				_json = $("#setup").val();
+				_json = JSON.parse($("#setup").val());
 			}catch(e){
 				alert("json incorrecte");
+				return;
 			}
-			applet.sign(JSON.parse($("#setup").val()));
+			applet.sign(_json);
 		}
 
 		function updateSetupJSON(){
