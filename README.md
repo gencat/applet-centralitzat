@@ -6,7 +6,7 @@
 
 * jQuery: https://code.jquery.com/
 
-* applet_centralitzat.js
+* [applet_centralitzat.js](https://github.com/cs-canigo/applet-centralitzat/blob/master/static/js/applet_centralitzat.js)
 
 * Java instal·lat a la m&agrave;quina que realitza la signatura
 
@@ -73,5 +73,19 @@ S'han de convertir en un objecte JSON que es passa al m&eacute;tode "sign" de l'
 
 Les propietats signButtonCaption i js_event s'injecten per defecte amb els valors "Signa" i true. 
 
-## [Aplicaci&oacute; de demo](http://test-applet-centralitzat.eu-gb.mybluemix.net/demo/)
+## Aplicaci&oacute; de demo
 
+L'aplicaci&oacute; de demo est&agrave; formada per dues parts:
+
+- Client: aplicaci&oacute; html i javascript que gestiona la comunicaci&oacute; amb l'Applet Centralitzat
+- Servidor: aplicaci&oacute; NodeJS que rep la resposta de l'Applet Centralitzat amb el resultat de la signatura. 
+	
+	- ha d'implementar el m&egrave;tode http POST
+	- rebr&agrave; una resposta al __body__ de la petici&oacute; amb el seg&uuml;ent contingut (JSON):
+
+			{
+				"signResult" : "xxxxxxxxxxxxxxxxxxxxxxx",
+				"token" : "yyyyyyyyyyyyyyy"
+			}
+
+Es pot veure un exemple aqu&iacute;: http://test-applet-centralitzat.eu-gb.mybluemix.net/demo/
