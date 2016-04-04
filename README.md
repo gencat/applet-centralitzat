@@ -10,6 +10,8 @@
 
 * Java instal·lat a la m&agrave;quina que realitza la signatura
 
+* Mentre no estigui publicat el DNS preproductiu de l'Applet Centralitzat, s'ha d'actualitzar el fitxer /etc/hosts de la m&agrave;quina des d'on es provi amb l'entrada: 213.27.191.82 sc-pre.aoc.cat
+
 ## Com funciona?
 
 Mitjançant el protocol JNLP (Java Network Launch Protocol) el servei de l'AOC que substitueix l'Applet de Signatura genera un fitxer amb les dades a signar. En clicar en aquest fitxer s'aixeca l'aplicaci&oacute; mitjan&ccedil;ant JWS (Java Web Start) que substitueix l'antic applet que s'incrustava al navegador (ara est&agrave; fora directament sobre el sistema operatiu).
