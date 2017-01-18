@@ -1,5 +1,5 @@
 function AppleCentralitzat(){
-	var baseUrl = "http://sc-pre.aoc.cat/appletCentralitzat",
+	var baseUrl = "https://signador-pre.aoc.cat/signador",
 		appUrl = window.location.protocol + "//" + window.location.host,
 		receiveSignatureService = "/demo/receiveSignature",
 		checkReceiveSignatureService = "/demo/checkReceiveSignature";
