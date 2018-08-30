@@ -115,6 +115,7 @@ function AppleCentralitzat(){
 					});
 				}, 3000);
 			}else{
+				alert('error: ' + data.message);
 				window.close();
 			}
 		}

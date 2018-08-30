@@ -1,0 +1,7 @@
+applications:
+- memory: 128M
+  instances: 1
+  domain: eu-gb.mybluemix.net
+  name: test-applet-centralitzat
+  host: test-applet-centralitzat
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git
